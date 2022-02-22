@@ -8,16 +8,16 @@ import javax.persistence.PersistenceContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trick.email.domain.model.Email;
+import com.trick.email.domain.model.User;
 
 @RestController
-public class EmailController {
+public class UserController {
 
 	@PersistenceContext
 	private EntityManager manager;
 	
-	@GetMapping("/emails")
-	public List<Email> list() {
-		return manager.createQuery("from Email", Email.class).getResultList();
+	@GetMapping("/users")
+	public List<User> list() {
+		return manager.createQuery("from User", User.class).getResultList();
 	}
 }

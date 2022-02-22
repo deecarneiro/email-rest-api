@@ -1,20 +1,13 @@
 package com.trick.email.domain.model;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.trick.email.domain.enums.STATUS;
 
 @Entity
@@ -26,18 +19,6 @@ public class Email{
 	@Column(name="id")
 	private long id;
 	
-//	@ManyToMany(fetch= FetchType.LAZY)
-//	@JoinColumns({
-//        @JoinColumn(name="idEmail", referencedColumnName="id"),
-//        @JoinColumn(name="idUser", referencedColumnName="id")
-//    })
-//	@JsonIgnore
-//	private List<User> sender;
-//	
-//	@ManyToMany
-//	@JsonIgnore
-//	private List<User> cc;
-//	
 	private String subject, body, assignment, label;
 	
 	@Column(name="id_user")
@@ -79,22 +60,6 @@ public class Email{
 	public void setId(long id) {
 		this.id = id;
 	}
-
-//	public List<User> getSender() {
-//		return sender;
-//	}
-//
-//	public void setSender(List<User> sender) {
-//		this.sender = sender;
-//	}
-//
-//	public List<User> getCc() {
-//		return cc;
-//	}
-//
-//	public void setCc(List<User> cc) {
-//		this.cc = cc;
-//	}
 
 	public String getSubject() {
 		return subject;
