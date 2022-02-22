@@ -13,7 +13,7 @@ import com.trick.email.domain.model.EmailPropertiesAndContent;
 @Repository
 public interface EmailRepository extends JpaRepository<Email, Long> {
 	
-	List<Email> findByidUser(long idUser);
+	List<Email> findByiduser(long idUser);
 	List<Email> findBystatus(STATUS status);
 
 	@Query(value = "SELECT e FROM Email as e WHERE (:inputString is null or e.subject like :inputString ) or " +

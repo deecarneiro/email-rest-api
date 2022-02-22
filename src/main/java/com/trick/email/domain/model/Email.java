@@ -21,8 +21,8 @@ public class Email{
 	
 	private String subject, body, assignment, label;
 	
-	@Column(name="id_user")
-	private long idUser;
+	@Column(name="iduser")
+	private long iduser;
 	
 	private STATUS status;
 	
@@ -36,7 +36,7 @@ public class Email{
 	}
 
 	public Email(long id,String subject, String body, String assignment,
-			String label, long idUser, STATUS status) {
+			String label, long iduser, STATUS status) {
 		super();
 		this.id = id;
 //		this.sender = sender;
@@ -45,7 +45,7 @@ public class Email{
 		this.body = body;
 		this.assignment = assignment;
 		this.label = label;
-		this.idUser = idUser;
+		this.iduser = iduser;
 		this.status = status;
 	}
 
@@ -94,11 +94,11 @@ public class Email{
 	}
 
 	public long getUserId() {
-		return idUser;
+		return iduser;
 	}
 
-	public void setUserId(int userId) {
-		this.idUser = userId;
+	public void setUserId(long iduser) {
+		this.iduser = iduser;
 	}
 
 	public STATUS getStatus() {
