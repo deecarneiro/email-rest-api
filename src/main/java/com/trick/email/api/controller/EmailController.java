@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trick.email.domain.model.Email;
@@ -43,7 +44,7 @@ public class EmailController {
 	}
 	
 	@PostMapping("/emails/search")
-	public List<EmailPropertiesAndContent> search() {
-	    return emailRepository.findAllByInputString("%sub%");
+	public List<EmailPropertiesAndContent> search(@RequestBody String inputString) {
+	    return emailRepository.findAllByInputString("%"+inputString+"%");
 	}
 }
