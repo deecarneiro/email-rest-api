@@ -22,7 +22,7 @@ public class Email{
 	private String subject, body, assignment, label;
 	
 	@Column(name="id_user")
-	private int idUser;
+	private long idUser;
 	
 	private STATUS status;
 	
@@ -36,7 +36,7 @@ public class Email{
 	}
 
 	public Email(long id,String subject, String body, String assignment,
-			String label, int idUser, STATUS status) {
+			String label, long idUser, STATUS status) {
 		super();
 		this.id = id;
 //		this.sender = sender;
