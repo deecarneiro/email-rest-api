@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trick.email.domain.model.Email;
 import com.trick.email.domain.model.EmailPropertiesAndContent;
+import com.trick.email.domain.model.User;
 import com.trick.email.domain.repository.EmailRepository;
 
 @RestController
@@ -68,6 +70,16 @@ public class EmailController {
 		email.setId(id);
 		email = emailRepository.save(email);
 		return ResponseEntity.ok(email);
+
+	}
+	
+	@DeleteMapping("emails/{id}")
+	public ResponseEntity<Email> deleteUser(@PathVariable Long id) {
+		if(!emailRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+		emailRepository.deleteById(id);
+		return ResponseEntity.noContent().build();
 
 	}
 }
