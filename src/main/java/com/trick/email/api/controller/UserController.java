@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trick.email.domain.model.Email;
 import com.trick.email.domain.model.User;
 import com.trick.email.domain.model.UserPropertiesAndContent;
 import com.trick.email.domain.repository.UserRepository;
@@ -37,6 +38,17 @@ public class UserController {
 	@GetMapping("/users/{id}")
 	public ResponseEntity<User> getById(@PathVariable Long id){
 		Optional<User> user = userRepository.findById(id);
+
+		if(user.isPresent()) {
+			return ResponseEntity.ok(user.get());
+		}
+
+		return ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping("/users/email")
+	public ResponseEntity<User> getByEmail(@RequestBody String emailString){
+		Optional<User> user = userRepository.findByemail(emailString);
 
 		if(user.isPresent()) {
 			return ResponseEntity.ok(user.get());

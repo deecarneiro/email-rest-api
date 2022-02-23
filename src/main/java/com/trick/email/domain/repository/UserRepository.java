@@ -1,6 +1,7 @@
 package com.trick.email.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	List<User> findBynameContaining(String name);
 	List<User> findBynickname(String nickname);
 	List<User> findBynicknameContaining(String name);
-	List<User> findByemail(String email);
+	Optional<User> findByemail(String email);
 	List<User> findByemailContaining(String name);
 
 	@Query(value = "SELECT u FROM User as u WHERE (:inputString is null or u.name like :inputString ) or " +

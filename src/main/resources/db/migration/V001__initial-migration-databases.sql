@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `trick-email`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(68) NOT NULL,
   `nickname` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_user_UNIQUE` (`id` ASC) VISIBLE,

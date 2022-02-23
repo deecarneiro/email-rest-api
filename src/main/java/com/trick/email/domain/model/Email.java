@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.trick.email.domain.enums.STATUS;
 
@@ -19,7 +21,18 @@ public class Email{
 	@Column(name="id")
 	private long id;
 
-	private String subject, body, assignment, label;
+	@Size(max=45)
+	private String subject;
+	
+	@Size(max=1000)
+	private String body; 
+	
+	@Size(max=255)
+	private String assignment; 
+	
+	@NotNull
+	@Size(max=255)
+	private String label;
 
 	@Column(name="iduser")
 	private long iduser;

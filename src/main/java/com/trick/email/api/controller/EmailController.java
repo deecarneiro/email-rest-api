@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,13 +53,13 @@ public class EmailController {
 
 	@PostMapping("/emails")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Email createEmail(@RequestBody Email email) {
+	public Email createEmail(@Valid @RequestBody Email email) {
 		return emailRepository.save(email);
 	}
 
 	@PostMapping("/emails/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Email> updateEmail(@PathVariable Long id, @RequestBody Email email) {
+	public ResponseEntity<Email> updateEmail(@PathVariable Long id, @Valid @RequestBody Email email) {
 
 		if(!emailRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
