@@ -49,10 +49,22 @@ public class UserController {
 	public List<UserPropertiesAndContent> search(@RequestBody String inputString) {
 	    return userRepository.findAllByInputString("%"+inputString+"%");
 	}
-	
+
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User createUser(@RequestBody User user) {
 		return userRepository.save(user);
+	}
+
+	@PostMapping("/users/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+		if(!userRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+		user.setId(id);
+		user = userRepository.save(user);
+		return ResponseEntity.ok(user);
+
 	}
 }

@@ -25,34 +25,48 @@ public class EmailController {
 
 	@PersistenceContext
 	private EntityManager manager;
-	
+
 	@Autowired
 	private EmailRepository emailRepository;
-	
+
 	@GetMapping("/emails")
 	public List<Email> list() {
 		return emailRepository.findAll();
 	}
-	
+
 	@GetMapping("/emails/{id}")
 	public ResponseEntity<Email> getById(@PathVariable Long id){
 		Optional<Email> email = emailRepository.findById(id);
-		
+
 		if(email.isPresent()) {
 			return ResponseEntity.ok(email.get());
 		}
-		
+
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@PostMapping("/emails/search")
 	public List<EmailPropertiesAndContent> search(@RequestBody String inputString) {
 	    return emailRepository.findAllByInputString("%"+inputString+"%");
 	}
-	
+
 	@PostMapping("/emails")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Email createUser(@RequestBody Email email) {
+	public Email createEmail(@RequestBody Email email) {
 		return emailRepository.save(email);
+	}
+
+	@PostMapping("/emails/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<Email> updateEmail(@PathVariable Long id, @RequestBody Email email) {
+
+		if(!emailRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+
+		email.setId(id);
+		email = emailRepository.save(email);
+		return ResponseEntity.ok(email);
+
 	}
 }

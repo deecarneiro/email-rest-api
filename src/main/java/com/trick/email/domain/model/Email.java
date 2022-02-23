@@ -13,19 +13,19 @@ import com.trick.email.domain.enums.STATUS;
 @Entity
 @Table(name="email")
 public class Email{
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private long id;
-	
+
 	private String subject, body, assignment, label;
-	
+
 	@Column(name="iduser")
 	private long iduser;
-	
+
 	private STATUS status;
-	
+
 	public Email(long id, String subject, String body, String assignment, String label, STATUS status) {
 		this.id = id;
 		this.subject = subject;
@@ -121,9 +121,7 @@ public class Email{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		Email other = (Email) obj;
 		if (id != other.id)
@@ -131,5 +129,5 @@ public class Email{
 		return true;
 	}
 
-	
+
 }

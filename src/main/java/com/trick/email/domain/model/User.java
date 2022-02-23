@@ -16,13 +16,13 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
     private long id;
-	
+
     private String name;
 	private String nickname;
 	private String email;
 	private String password;
-	
-	
+
+
 	public User(long id, String name, String nickname, String email, String password) {
 		super();
 		this.id = id;
@@ -32,8 +32,8 @@ public class User {
 		this.password = password;
 //		this.contacts = contacts;
 	}
-	
-	
+
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -93,16 +93,14 @@ public class User {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		User other = (User) obj;
 		if (id != other.id)
 			return false;
 		return true;
 	}
-	
-	
+
+
 
 }

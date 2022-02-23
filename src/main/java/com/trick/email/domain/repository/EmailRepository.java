@@ -12,7 +12,7 @@ import com.trick.email.domain.model.EmailPropertiesAndContent;
 
 @Repository
 public interface EmailRepository extends JpaRepository<Email, Long> {
-	
+
 	List<Email> findByiduser(long idUser);
 	List<Email> findBystatus(STATUS status);
 
