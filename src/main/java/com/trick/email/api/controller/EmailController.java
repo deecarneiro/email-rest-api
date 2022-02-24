@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trick.email.api.domain.model.Email;
-import com.trick.email.api.domain.model.EmailPropertiesAndContent;
-import com.trick.email.api.domain.repository.EmailRepository;
 import com.trick.email.api.domain.service.EmailCrudService;
+import com.trick.email.api.domain.view.EmailView;
 
 @RestController
 public class EmailController {
@@ -49,7 +48,7 @@ public class EmailController {
 	}
 
 	@PostMapping("/emails/search")
-	public List<EmailPropertiesAndContent> search(@RequestBody String inputString) {
+	public List<EmailView> search(@RequestBody String inputString) {
 	    return emailCrudService.search("%"+inputString+"%");
 	}
 
@@ -67,7 +66,7 @@ public class EmailController {
 		email = emailCrudService.save(email);
 
 	}
-	
+
 	@DeleteMapping("emails/{id}")
 	public void deleteEmail(@PathVariable Long id) {
 		emailCrudService.delete(id);

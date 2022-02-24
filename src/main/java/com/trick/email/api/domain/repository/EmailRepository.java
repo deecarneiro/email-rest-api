@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.trick.email.api.domain.enums.STATUS;
 import com.trick.email.api.domain.model.Email;
-import com.trick.email.api.domain.model.EmailPropertiesAndContent;
+import com.trick.email.api.domain.view.EmailView;
 
 @Repository
 public interface EmailRepository extends JpaRepository<Email, Long> {
@@ -20,6 +20,6 @@ public interface EmailRepository extends JpaRepository<Email, Long> {
             "(:inputString is null or e.body like :inputString) or (:inputString is null or e.assignment like :inputString) or"+
             "(:inputString is null or e.label like :inputString)"
     )
-    List<EmailPropertiesAndContent> findAllByInputString( String inputString);
+    List<EmailView> findAllByInputString( String inputString);
 
 }

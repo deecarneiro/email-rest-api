@@ -23,13 +23,13 @@ public class Email{
 
 	@Size(max=45)
 	private String subject;
-	
+
 	@Size(max=1000)
-	private String body; 
-	
+	private String body;
+
 	@Size(max=255)
-	private String assignment; 
-	
+	private String assignment;
+
 	@NotNull
 	@Size(max=255)
 	private String label;

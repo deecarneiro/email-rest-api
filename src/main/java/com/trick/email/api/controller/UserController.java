@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trick.email.api.domain.model.Email;
 import com.trick.email.api.domain.model.User;
-import com.trick.email.api.domain.model.UserPropertiesAndContent;
 import com.trick.email.api.domain.repository.UserRepository;
+import com.trick.email.api.domain.view.UserView;
 
 @RestController
 public class UserController {
@@ -47,7 +46,7 @@ public class UserController {
 
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@PostMapping("/users/email")
 	public ResponseEntity<User> getByEmail(@RequestBody String emailString){
 		Optional<User> user = userRepository.findByemail(emailString);
@@ -60,7 +59,7 @@ public class UserController {
 	}
 
 	@PostMapping("/users/search")
-	public List<UserPropertiesAndContent> search(@RequestBody String inputString) {
+	public List<UserView> search(@RequestBody String inputString) {
 	    return userRepository.findAllByInputString("%"+inputString+"%");
 	}
 
@@ -81,7 +80,7 @@ public class UserController {
 		return ResponseEntity.ok(user);
 
 	}
-	
+
 	@DeleteMapping("users/{id}")
 	public ResponseEntity<User> deleteUser(@PathVariable Long id) {
 		if(!userRepository.existsById(id)) {

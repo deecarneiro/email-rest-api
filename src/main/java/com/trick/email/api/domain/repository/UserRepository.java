@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.trick.email.api.domain.model.User;
-import com.trick.email.api.domain.model.UserPropertiesAndContent;
+import com.trick.email.api.domain.view.UserView;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value = "SELECT u FROM User as u WHERE (:inputString is null or u.name like :inputString ) or " +
             "(:inputString is null or u.nickname like :inputString) or (:inputString is null or u.email like :inputString)"
     )
-    List<UserPropertiesAndContent> findAllByInputString( String inputString);
+    List<UserView> findAllByInputString( String inputString);
 
 
 }
