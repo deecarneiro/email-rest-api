@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trick.email.api.domain.model.Email;
 import com.trick.email.api.domain.model.EmailPropertiesAndContent;
 import com.trick.email.api.domain.repository.EmailRepository;
+import com.trick.email.api.domain.service.EmailCrudService;
 
 @RestController
 public class EmailController {
@@ -29,16 +30,16 @@ public class EmailController {
 	private EntityManager manager;
 
 	@Autowired
-	private EmailRepository emailRepository;
+	private EmailCrudService emailCrudService;
 
 	@GetMapping("/emails")
 	public List<Email> list() {
-		return emailRepository.findAll();
+		return emailCrudService.list();
 	}
 
 	@GetMapping("/emails/{id}")
 	public ResponseEntity<Email> getById(@PathVariable Long id){
-		Optional<Email> email = emailRepository.findById(id);
+		Optional<Email> email = emailCrudService.getById(id);
 
 		if(email.isPresent()) {
 			return ResponseEntity.ok(email.get());
@@ -49,36 +50,26 @@ public class EmailController {
 
 	@PostMapping("/emails/search")
 	public List<EmailPropertiesAndContent> search(@RequestBody String inputString) {
-	    return emailRepository.findAllByInputString("%"+inputString+"%");
+	    return emailCrudService.search("%"+inputString+"%");
 	}
 
 	@PostMapping("/emails")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Email createEmail(@Valid @RequestBody Email email) {
-		return emailRepository.save(email);
+		return emailCrudService.save(email);
 	}
 
 	@PostMapping("/emails/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Email> updateEmail(@PathVariable Long id, @Valid @RequestBody Email email) {
-
-		if(!emailRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
+	public void updateEmail(@PathVariable Long id, @Valid @RequestBody Email email) {
 
 		email.setId(id);
-		email = emailRepository.save(email);
-		return ResponseEntity.ok(email);
+		email = emailCrudService.save(email);
 
 	}
 	
 	@DeleteMapping("emails/{id}")
-	public ResponseEntity<Email> deleteUser(@PathVariable Long id) {
-		if(!emailRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		emailRepository.deleteById(id);
-		return ResponseEntity.noContent().build();
-
+	public void deleteEmail(@PathVariable Long id) {
+		emailCrudService.delete(id);
 	}
 }
