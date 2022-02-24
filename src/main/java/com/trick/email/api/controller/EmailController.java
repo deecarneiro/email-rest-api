@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trick.email.domain.model.Email;
-import com.trick.email.domain.model.EmailPropertiesAndContent;
-import com.trick.email.domain.model.User;
-import com.trick.email.domain.repository.EmailRepository;
+import com.trick.email.api.domain.model.Email;
+import com.trick.email.api.domain.model.EmailPropertiesAndContent;
+import com.trick.email.api.domain.repository.EmailRepository;
 
 @RestController
 public class EmailController {

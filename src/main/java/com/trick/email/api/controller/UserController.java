@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trick.email.domain.model.Email;
-import com.trick.email.domain.model.User;
-import com.trick.email.domain.model.UserPropertiesAndContent;
-import com.trick.email.domain.repository.UserRepository;
+import com.trick.email.api.domain.model.Email;
+import com.trick.email.api.domain.model.User;
+import com.trick.email.api.domain.model.UserPropertiesAndContent;
+import com.trick.email.api.domain.repository.UserRepository;
 
 @RestController
 public class UserController {
@@ -65,13 +66,13 @@ public class UserController {
 
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
-	public User createUser(@RequestBody User user) {
+	public User createUser( @Valid @RequestBody User user) {
 		return userRepository.save(user);
 	}
 
 	@PostMapping("/users/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+	public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
 		if(!userRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

@@ -1,4 +1,4 @@
-package com.trick.email.domain.model;
+package com.trick.email.api.domain.model;
 
 public interface EmailPropertiesAndContent {
 	String getSubject();

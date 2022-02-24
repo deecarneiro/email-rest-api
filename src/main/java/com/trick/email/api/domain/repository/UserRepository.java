@@ -1,4 +1,4 @@
-package com.trick.email.domain.repository;
+package com.trick.email.api.domain.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.trick.email.domain.model.User;
-import com.trick.email.domain.model.UserPropertiesAndContent;
+import com.trick.email.api.domain.model.User;
+import com.trick.email.api.domain.model.UserPropertiesAndContent;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 

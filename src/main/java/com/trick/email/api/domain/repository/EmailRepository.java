@@ -1,4 +1,4 @@
-package com.trick.email.domain.repository;
+package com.trick.email.api.domain.repository;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.trick.email.domain.enums.STATUS;
-import com.trick.email.domain.model.Email;
-import com.trick.email.domain.model.EmailPropertiesAndContent;
+import com.trick.email.api.domain.enums.STATUS;
+import com.trick.email.api.domain.model.Email;
+import com.trick.email.api.domain.model.EmailPropertiesAndContent;
 
 @Repository
 public interface EmailRepository extends JpaRepository<Email, Long> {

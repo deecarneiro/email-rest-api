@@ -1,4 +1,4 @@
-package com.trick.email.domain.model;
+package com.trick.email.api.domain.model;
 
 
 import javax.persistence.Column;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.trick.email.domain.enums.STATUS;
+import com.trick.email.api.domain.enums.STATUS;
 
 @Entity
 @Table(name="email")

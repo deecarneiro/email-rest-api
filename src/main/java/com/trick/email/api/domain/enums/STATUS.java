@@ -1,4 +1,4 @@
-package com.trick.email.domain.enums;
+package com.trick.email.api.domain.enums;
 
 public enum STATUS {
 

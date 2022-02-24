@@ -1,4 +1,4 @@
-package com.trick.email.domain.model;
+package com.trick.email.api.domain.model;
 
 
 import javax.persistence.Column;
@@ -7,12 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 
 @Entity
-@Table(name="user")
+@Table(name="user",  uniqueConstraints=
+@UniqueConstraint(columnNames={"name", "nickname", "email"}))
 public class User {
 
 	@Id
