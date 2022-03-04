@@ -1,4 +1,4 @@
-package com.trick.email.api.utils;
+package com.trick.email.api.domain.security;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
