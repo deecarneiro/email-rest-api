@@ -1,6 +1,5 @@
 package com.trick.email.api.domain.service;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +15,13 @@ public class GenerateTokenService {
 
 	@Autowired
 	private UserTokenRepository userTokenRepository;
-	
+
 	public UserToken generate(User user) {
 		UserToken userTokenSet = new UserToken();
 		if(!user.getEmail().isEmpty()) {
 			Optional<UserToken> userToken = userTokenRepository.findByiduser(user.getId());
 			if(userToken.isPresent()) {
-			 
+
 				return userToken.get();
 			}else {
 				userTokenSet.setIduser(user.getId());
@@ -32,5 +31,5 @@ public class GenerateTokenService {
 		}
 		return userTokenSet;
 	}
-	
+
 }
