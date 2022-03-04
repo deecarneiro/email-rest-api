@@ -43,7 +43,7 @@ public class UserCrudService {
 		user.setId(id);
 		return userRepository.save(user);
 	}
-	
+
 	public User updatePassword(Long id, String password) throws NoSuchAlgorithmException {
 		if(!userRepository.existsById(id)) {
 			throw new BusinessException("This user can't be updated. Just drafts can be updated!");

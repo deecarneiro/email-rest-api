@@ -23,4 +23,10 @@ public interface UserRepository extends JpaRepository<User, Long>{
     List<UserView> findAllByInputString( String inputString);
 
 
+	@Query(value = "SELECT u FROM User as u WHERE (:password is null or u.password like :password ) and " +
+            "(:email is null or u.email like :email)"
+    )
+	User findByEmailAndPassword(String email, String password);
+
+
 }
