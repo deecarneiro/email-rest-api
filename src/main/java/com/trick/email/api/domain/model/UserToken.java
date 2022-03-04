@@ -23,6 +23,18 @@ public class UserToken{
 	@Column(name="iduser")
 	private long iduser;
 
+	public UserToken() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserToken(long id, String token, long iduser) {
+		super();
+		this.id = id;
+		this.token = token;
+		this.iduser = iduser;
+	}
+
 	public long getId() {
 		return id;
 	}
