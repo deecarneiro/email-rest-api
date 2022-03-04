@@ -17,7 +17,7 @@ public class UserCrudService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	public User save(User user) throws NoSuchAlgorithmException {
     	String hashPass = UserUtils.md5(user.getPassword());
 	    user.setPassword(hashPass);
@@ -29,19 +29,30 @@ public class UserCrudService {
 	}
 
 	public Optional<User> getById(long id) {
-		return Optional.ofNullable(userRepository.getById(id));
+		return userRepository.findById(id);
 	}
-	
+
 	public Optional<User> getByEmail(String email) {
 		return Optional.ofNullable(userRepository.findByemail(email));
 	}
 
-	public User update(Long id, User user) {
+	public User update(Long id, User user) throws NoSuchAlgorithmException {
 		if(userRepository.existsById(id)) {
 			throw new BusinessException("This user can't be updated. Just drafts can be updated!");
 		}
 		user.setId(id);
 		return userRepository.save(user);
+	}
+	
+	public User updatePassword(Long id, String password) throws NoSuchAlgorithmException {
+		if(!userRepository.existsById(id)) {
+			throw new BusinessException("This user can't be updated. Just drafts can be updated!");
+		}
+		Optional<User> user = userRepository.findById(id);
+		String hashPass = UserUtils.md5(password);
+		User userUpdated = user.get();
+		userUpdated.setPassword(hashPass);
+		return userRepository.save(userUpdated);
 	}
 
 	public boolean exists(Long id) {

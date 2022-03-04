@@ -21,12 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.trick.email.api.domain.model.Email;
 import com.trick.email.api.domain.model.User;
-import com.trick.email.api.domain.repository.UserRepository;
 import com.trick.email.api.domain.service.UserCrudService;
-import com.trick.email.api.domain.view.UserView;
 
 @RestController
 public class UserController {
@@ -64,6 +60,10 @@ public class UserController {
 		return ResponseEntity.notFound().build();
 	}
 
+	@PostMapping("/users/password/{id}")
+	public void updatePassword(@PathVariable long id, @RequestBody String password) throws NoSuchAlgorithmException{
+		userCrudService.updatePassword(id, password);
+	}
 
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
