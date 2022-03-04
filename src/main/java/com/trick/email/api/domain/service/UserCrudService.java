@@ -1,5 +1,6 @@
 package com.trick.email.api.domain.service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,14 +10,19 @@ import org.springframework.stereotype.Service;
 import com.trick.email.api.domain.exception.BusinessException;
 import com.trick.email.api.domain.model.User;
 import com.trick.email.api.domain.repository.UserRepository;
+import com.trick.email.api.domain.security.UserUtils;
 
 @Service
 public class UserCrudService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	private UserUtils userUtils;
 
-	public User save(User user) {
+	public User save(User user) throws NoSuchAlgorithmException {
+	    String hashPass = userUtils.md5(user.getPassword());
+	    user.setPassword(hashPass);
 		return userRepository.save(user);
 	}
 
