@@ -1,5 +1,6 @@
 package com.trick.email.api.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trick.email.api.domain.model.Email;
 import com.trick.email.api.domain.model.User;
 import com.trick.email.api.domain.repository.UserRepository;
+import com.trick.email.api.domain.service.UserCrudService;
 import com.trick.email.api.domain.view.UserView;
 
 @RestController
@@ -29,16 +35,16 @@ public class UserController {
 	private EntityManager manager;
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserCrudService userCrudService;
 
 	@GetMapping("/users")
 	public List<User> list() {
-		return userRepository.findAll();
+		return userCrudService.list();
 	}
 
 	@GetMapping("/users/{id}")
 	public ResponseEntity<User> getById(@PathVariable Long id){
-		Optional<User> user = userRepository.findById(id);
+		Optional<User> user = userCrudService.getById(id);
 
 		if(user.isPresent()) {
 			return ResponseEntity.ok(user.get());
@@ -49,7 +55,7 @@ public class UserController {
 
 	@PostMapping("/users/email")
 	public ResponseEntity<User> getByEmail(@RequestBody String emailString){
-		Optional<User> user = userRepository.findByemail(emailString);
+		Optional<User> user = userCrudService.getByEmail(emailString);
 
 		if(user.isPresent()) {
 			return ResponseEntity.ok(user.get());
@@ -58,36 +64,22 @@ public class UserController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@PostMapping("/users/search")
-	public List<UserView> search(@RequestBody String inputString) {
-	    return userRepository.findAllByInputString("%"+inputString+"%");
-	}
 
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
-	public User createUser( @Valid @RequestBody User user) {
-		return userRepository.save(user);
+	public User createUser( @Valid @RequestBody User user) throws NoSuchAlgorithmException, JsonMappingException, JsonProcessingException {
+		return userCrudService.save(user);
 	}
 
 	@PostMapping("/users/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
-		if(!userRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
+	public void updateUser(@PathVariable Long id, @Valid @RequestBody User user) throws NoSuchAlgorithmException {
 		user.setId(id);
-		user = userRepository.save(user);
-		return ResponseEntity.ok(user);
-
+		userCrudService.update(id, user);
 	}
 
 	@DeleteMapping("users/{id}")
-	public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-		if(!userRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		userRepository.deleteById(id);
-		return ResponseEntity.noContent().build();
-
+	public void deleteUser(@PathVariable Long id) {
+		userCrudService.delete(id);
 	}
 }

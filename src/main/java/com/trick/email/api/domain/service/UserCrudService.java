@@ -18,10 +18,8 @@ public class UserCrudService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	private UserUtils userUtils;
-
 	public User save(User user) throws NoSuchAlgorithmException {
-	    String hashPass = userUtils.md5(user.getPassword());
+    	String hashPass = UserUtils.md5(user.getPassword());
 	    user.setPassword(hashPass);
 		return userRepository.save(user);
 	}
@@ -32,6 +30,10 @@ public class UserCrudService {
 
 	public Optional<User> getById(long id) {
 		return Optional.ofNullable(userRepository.getById(id));
+	}
+	
+	public Optional<User> getByEmail(String email) {
+		return Optional.ofNullable(userRepository.findByemail(email));
 	}
 
 	public User update(Long id, User user) {
